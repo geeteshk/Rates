@@ -72,7 +72,11 @@ fun setMutableFlag(view: ImageView, currency: MutableLiveData<ExtCurrency>?) {
 
 @BindingAdapter("mutableCurrencyValue")
 fun setMutableCurrencyValue(view: Chip, viewModel: RateListViewModel) {
-    viewModel.currMultiplier.mutableObserver(view) { view.text = it.asCurrency(viewModel.baseCurrency.value!!) }
+    viewModel.currMultiplier.mutableObserver(view) {
+        view.text = it.asCurrency(viewModel.baseCurrency.value!!)
+        viewModel.baseCurrency.value = viewModel.baseCurrency.value
+    }
+
     viewModel.baseCurrency.mutableObserver(view) { view.text = viewModel.currMultiplier.value!!.asCurrency(it) }
 }
 

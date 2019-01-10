@@ -30,6 +30,6 @@ interface RatesDao {
     @Query("SELECT * FROM rates WHERE base LIKE :baseCode AND date LIKE :date")
     fun getRates(date: String, baseCode: String): List<Rates>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg rates: Rates)
 }
