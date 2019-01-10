@@ -22,6 +22,13 @@ import io.geeteshk.rates.model.ExtCurrency
 import java.text.NumberFormat
 import java.util.*
 
+val supportedCurrencies = arrayOf(
+    "HRK", "HUF", "IDR", "PHP", "TRY", "RON", "ISK", "SEK", "THB", "PLN",
+    "GBP", "CAD", "AUD", "MYR", "NZD", "CHF", "DKK", "SGD", "CNY", "BGN",
+    "CZK", "BRL", "JPY", "KRW", "INR", "MXN", "RUB", "HKD", "USD", "ZAR",
+    "ILS", "NOK", "EUR"
+)
+
 @DrawableRes fun Currency.flagDrawable(context: Context): Int =
     context.resources.getIdentifier("ic_flag_${currencyCode.toLowerCase()}", "drawable", context.packageName)
 

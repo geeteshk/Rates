@@ -27,6 +27,7 @@ import io.geeteshk.rates.utils.extensions.asCurrency
 import io.geeteshk.rates.network.RateApi
 import io.geeteshk.rates.ui.adapter.RateListAdapter
 import io.geeteshk.rates.utils.extensions.default
+import io.geeteshk.rates.utils.extensions.supportedCurrencies
 import io.geeteshk.rates.utils.toApiString
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -117,6 +118,13 @@ class RateListViewModel(private val ratesDao: RatesDao, private val app: Applica
 
     private fun onError() {
         errorMessage.value = R.string.error_loading_rates
+        onSuccess(mapToCurrencyPairList(generateFromEmptyMap()))
+    }
+
+    private fun generateFromEmptyMap(): TreeMap<String, Double> {
+        val map = TreeMap<String, Double>()
+        supportedCurrencies.forEach { map[it] = 0.0 }
+        return map
     }
 
     override fun onCleared() {
