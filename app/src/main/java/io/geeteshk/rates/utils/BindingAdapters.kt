@@ -43,11 +43,6 @@ fun <T> MutableLiveData<T>?.mutableObserver(view: View, observer: (T) -> Unit) {
     }
 }
 
-@BindingAdapter("mutableCurrencyDesc")
-fun setMutableCurrencyDesc(view: TextView, currency: MutableLiveData<ExtCurrency>?) {
-    currency.mutableObserver(view) { view.text = it.displayName }
-}
-
 @BindingAdapter("mutableVisibility")
 fun setMutableVisibility(progressBar: ContentLoadingProgressBar, visibility: MutableLiveData<Boolean>?) {
     visibility.mutableObserver(progressBar as View) {
@@ -58,16 +53,6 @@ fun setMutableVisibility(progressBar: ContentLoadingProgressBar, visibility: Mut
 @BindingAdapter("mutableText")
 fun setMutableText(view: TextView, text: MutableLiveData<String>?) {
     text.mutableObserver(view) { view.text = it }
-}
-
-@BindingAdapter("mutableCurrencyCode")
-fun setMutableCurrencyCode(view: TextView, currency: MutableLiveData<ExtCurrency>?) {
-    currency.mutableObserver(view) { view.text = it.code }
-}
-
-@BindingAdapter("mutableFlag")
-fun setMutableFlag(view: ImageView, currency: MutableLiveData<ExtCurrency>?) {
-    currency.mutableObserver(view) { view.setImageResource(it.flagResource) }
 }
 
 @BindingAdapter("mutableCurrencyValue")
