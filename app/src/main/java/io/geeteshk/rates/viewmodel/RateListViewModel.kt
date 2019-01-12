@@ -87,7 +87,8 @@ class RateListViewModel(private val ratesDao: RatesDao, private val app: Applica
                 .doOnSubscribe { onStart() }
                 .doOnTerminate { onComplete() }
                 .subscribe(
-                    { onSuccess(it) }, { onError() }
+                    { onSuccess(it) },
+                    { onError(mapToCurrencyPairList(generateFromEmptyMap())) }
                 ))
     }
 
@@ -120,9 +121,9 @@ class RateListViewModel(private val ratesDao: RatesDao, private val app: Applica
         rateListAdapter.updateList(rateList)
     }
 
-    private fun onError() {
+    private fun onError(rateList: List<RateData>) {
         errorMessage.value = R.string.error_loading_rates
-        onSuccess(mapToCurrencyPairList(generateFromEmptyMap()))
+        rateListAdapter.updateList(rateList)
     }
 
     private fun generateFromEmptyMap(): TreeMap<String, Double> {
