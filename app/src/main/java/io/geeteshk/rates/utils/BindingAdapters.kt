@@ -17,7 +17,6 @@
 package io.geeteshk.rates.utils
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.ContentLoadingProgressBar
@@ -82,7 +81,7 @@ fun setMutableYear(view: TextView, date: MutableLiveData<Date>?) {
 
 @BindingAdapter("mutableFriendlyDate")
 fun setMutableFriendlyDate(view: TextView, date: MutableLiveData<Date>?) {
-    date.mutableObserver(view) { view.text = it.toFriendlyString() }
+    date.mutableObserver(view) { view.text = it.format(FORMAT_FRIENDLY) }
 }
 
 

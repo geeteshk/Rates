@@ -16,9 +16,13 @@
 
 package io.geeteshk.rates.utils
 
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.toApiString(): String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(this)
+const val FORMAT_API = "yyyy-MM-dd"
+const val FORMAT_FRIENDLY = "MMM, EEE d"
 
-fun Date.toFriendlyString(): String = SimpleDateFormat("MMM, EEE d", Locale.getDefault()).format(this)
+private fun dateFormat(format: String): DateFormat = SimpleDateFormat(format, Locale.getDefault())
+
+fun Date.format(format: String): String = dateFormat(format).format(this)

@@ -26,9 +26,10 @@ import io.geeteshk.rates.model.RatesDao
 import io.geeteshk.rates.utils.extensions.asCurrency
 import io.geeteshk.rates.network.RateApi
 import io.geeteshk.rates.ui.adapter.RateListAdapter
+import io.geeteshk.rates.utils.FORMAT_API
 import io.geeteshk.rates.utils.extensions.default
 import io.geeteshk.rates.utils.extensions.supportedCurrencies
-import io.geeteshk.rates.utils.toApiString
+import io.geeteshk.rates.utils.format
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -62,11 +63,14 @@ class RateListViewModel(private val ratesDao: RatesDao, private val app: Applica
     }
 
     fun loadRates() {
+        val date = dateEndpoint.value!!.format(FORMAT_API)
+        val base = baseCurrency.value!!.code
+
         subscription.add(Observable.fromCallable {
-            ratesDao.getRates(dateEndpoint.value!!.toApiString(), baseCurrency.value!!.code) }
+            ratesDao.getRates(date, base) }
                 .concatMap { dbRateList ->
                     if (dbRateList.isEmpty()) {
-                        rateApi.getRates(dateEndpoint.value!!.toApiString(), baseCurrency.value!!.code)
+                        rateApi.getRates(date, base)
                             .concatMap { apiRates ->
                                 ratesDao.insertAll(apiRates)
                                 Observable.just(apiRates)
